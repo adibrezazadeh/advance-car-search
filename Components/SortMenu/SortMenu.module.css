@@ -1,0 +1,21 @@
+.Headersort{
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 24px;
+    color: #000;
+}
+.btnsort{
+    color: #9e9e9e;
+    border: none;
+    background-color: white;
+    border-right: 1px solid #9e9e9e;
+
+}
+.lablesort{
+    color: #9e9e9e;
+}
+.sortview{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
