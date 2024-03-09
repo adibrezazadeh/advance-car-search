@@ -3,7 +3,7 @@ import styles from "./SortMenu.module.css";
 import { FaList } from "react-icons/fa6";
 import { HiViewGrid } from "react-icons/hi";
 
-export default function SortMenu() {
+export default function SortMenu(props) {
   return (
     <div className="container mt-5 mb-2 ">
       <div className="mt-2">
@@ -40,3 +40,15 @@ export default function SortMenu() {
     </div>
   );
 }
+
+export async function getServerSideProps(ctx) {
+  const domain = ctx.req.headers["x-forwarded-host"]
+    ? ctx.req.headers["x-forwarded-host"]
+    : ctx.req.headers.host;
+  const res=await fetch(`/dealership/vehicles/all/${domain}`)
+  const data=await res.json();
+  console.log(data)
+  return {
+    props:{post:data},
+  }
+  }

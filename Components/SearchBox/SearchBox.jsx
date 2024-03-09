@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./SearchBox.module.css";
 import { FaSearch } from "react-icons/fa";
 
-function SearchBox() {
+function SearchBox(props) {
+  console.log(props)
   return (
     <div className={`container mt-5 pb-5 shadow ${styles.boxserach}`}>
       <div className="">
@@ -79,7 +80,7 @@ function SearchBox() {
           <div className="col-lg-3 col-12 px-2 py-1">
             <input
               type="text"
-              class="p-1 w-100"
+              className="p-1 w-100"
               placeholder="Search (Make, Model, Price,...)"
               value=""
             ></input>
