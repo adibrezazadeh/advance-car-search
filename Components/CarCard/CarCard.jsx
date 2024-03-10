@@ -6,6 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 export default function CarCard({ carItem }) {
   const [items, setItems] = useState(Object.entries(carItem));
   console.log(items);
+  // function for sperate number 3 , 3
   const sperateNum=(num)=>{
     const sperateNumber=num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     return sperateNumber;
@@ -15,7 +16,7 @@ export default function CarCard({ carItem }) {
       <div className="row ">
           {
             items.map((item=>(
-            <div key={item[0].id} className="p-2 col-12 col-md-6 col-xl-4">
+            <div key={item[1].id} className="p-2 col-12 col-md-6 col-xl-4">
             <div className={`  shadow p-0 ${styles.boxcar}`}>
             <div>
               <div className="">
@@ -37,7 +38,7 @@ export default function CarCard({ carItem }) {
                     Select For Compare
                   </p>
                 </div>
-                <p className={`p-0 m-0 ${styles.carprice}`}>${sperateNum(item[1].sell_price)}</p>
+                <p className={`p-0 m-0 ${styles.carprice}`}>${ sperateNum(item[1].sell_price)}</p>
               </div>
               <div className="mx-3">
                 <a

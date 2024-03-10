@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import SearchBox from '@/Components/SearchBox/SearchBox.jsx'
 import SortMenu from '@/Components//SortMenu/SortMenu.jsx'
 import CarCard from '@/Components//CarCard/CarCard.jsx'
+import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props) {
