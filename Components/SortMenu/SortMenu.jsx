@@ -3,11 +3,13 @@ import styles from "./SortMenu.module.css";
 import { FaList } from "react-icons/fa6";
 import { HiViewGrid } from "react-icons/hi";
 
-export default function SortMenu(props) {
+export default function SortMenu({carItem}) {
+  const itemsNum =Object.entries(carItem).length;
+  
   return (
     <div className="container mt-5 mb-2 ">
       <div className="mt-2">
-        <p className={styles.Headersort}>9 Vehicles</p>
+        <p className={styles.Headersort}>{itemsNum} Vehicles</p>
       </div>
       <div className="d-flex justify-content-between">
         <div className="d-flex  ">

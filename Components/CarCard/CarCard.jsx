@@ -9,6 +9,7 @@ export default function CarCard({ carItem }) {
   return (
     <div className="container">
       <div className="row ">
+          {/* map for show cars */}
           <div className="p-2 col-12 col-md-6 col-xl-4">
             <div className={`  shadow p-0 ${styles.boxcar}`}>
             <div>

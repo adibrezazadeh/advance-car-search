@@ -18,7 +18,7 @@ export default function Home(props) {
       </Head>
       
        <SearchBox {...props}/> 
-      <SortMenu/>
+      <SortMenu {...props}/>
       <CarCard {...props}/>
     </>
   );
