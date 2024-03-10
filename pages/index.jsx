@@ -63,7 +63,7 @@ export async function getServerSideProps(ctx) {
     odometer_high: null,
   }
   const res2 = await fetch(
-    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=&limitv`
+    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=1&limit=10`
   ,{
     method: 'POST',
     headers: {

@@ -6,11 +6,16 @@ import { FaPhoneAlt } from "react-icons/fa";
 export default function CarCard({ carItem }) {
   const [items, setItems] = useState(Object.entries(carItem));
   console.log(items);
+  const sperateNum=(num)=>{
+    const sperateNumber=num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return sperateNumber;
+  }
   return (
     <div className="container">
       <div className="row ">
-          {/* map for show cars */}
-          <div className="p-2 col-12 col-md-6 col-xl-4">
+          {
+            items.map((item=>(
+            <div key={item[0].id} className="p-2 col-12 col-md-6 col-xl-4">
             <div className={`  shadow p-0 ${styles.boxcar}`}>
             <div>
               <div className="">
@@ -32,14 +37,14 @@ export default function CarCard({ carItem }) {
                     Select For Compare
                   </p>
                 </div>
-                <p className={`p-0 m-0 ${styles.carprice}`}>$23,990</p>
+                <p className={`p-0 m-0 ${styles.carprice}`}>${sperateNum(item[1].sell_price)}</p>
               </div>
               <div className="mx-3">
                 <a
                   className={`p-0 m-0 text-decoration-none text-start ${styles.cartitle}`}
                   href="#"
                 >
-                  2020 Toyota Camry FWD
+                  {item[1].Vehicle.model_year} {item[1].Vehicle.make} {item[1].Vehicle.model} {item[1].Vehicle.drive_type}
                 </a>
                 <p className={`${styles.cartitlesub} m-0`}>SE Auto</p>
               </div>
@@ -51,35 +56,35 @@ export default function CarCard({ carItem }) {
                 </div>
                 <div className={`row mx-3 ${styles.gray} `}>
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>Mileage :</p>
-                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>97,204 KM</p>
+                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>{sperateNum(item[1].odometer)} KM</p>
                 </div>
                 <div className="row mx-3  ">
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>Engine :</p>
                   <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                    4 Cylinder
+                    {item[1].Vehicle.engine_type}
                   </p>
                 </div>
                 <div className={`row mx-3 ${styles.gray} `}>
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>
                     Drivetrain :
                   </p>
-                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>FWD</p>
+                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>{item[1].Vehicle.drive_type}</p>
                 </div>
                 <div className="row mx-3   ">
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>
                     Fuel Type :
                   </p>
-                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>Gasoline</p>
+                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>{item[1].Vehicle.fuel_type}</p>
                 </div>
                 <div className={`row mx-3 ${styles.gray} `}>
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>
                     Transmission : :
                   </p>
-                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>Automatic</p>
+                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>{item[1].Vehicle.Transmission.name}</p>
                 </div>
                 <div className="row mx-3   ">
                   <p className={`col-6 ${styles.aboutt1} p-2 m-0`}>Stock # :</p>
-                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>989399</p>
+                  <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>{item[1].stock_NO}</p>
                 </div>
               </div>
               <div className={`${styles.buttons} m-3 row`}>
@@ -149,7 +154,10 @@ export default function CarCard({ carItem }) {
               </div>
             </div>
             </div> 
-          </div>
+            </div>
+
+            )))
+          }
           
       </div>
     </div>
