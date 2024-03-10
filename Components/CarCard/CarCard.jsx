@@ -20,7 +20,7 @@ export default function CarCard({ carItem }) {
             <div>
               <div className="">
                 <img
-                  src="https://image123.azureedge.net/hillzgroup/thumb-2018-Ford-Explorer-09436506978105252.jpg"
+                  src={item[1].thumbnail_cover_image}
                   className={` w-100 ${styles.carphoto}`}
                   alt="car"
                 />
@@ -46,7 +46,7 @@ export default function CarCard({ carItem }) {
                 >
                   {item[1].Vehicle.model_year} {item[1].Vehicle.make} {item[1].Vehicle.model} {item[1].Vehicle.drive_type}
                 </a>
-                <p className={`${styles.cartitlesub} m-0`}>SE Auto</p>
+                <p className={`${styles.cartitlesub} m-0`}>{item[1].Vehicle.trim}</p>
               </div>
               <div>
                 <div className=" m-3 p-0">
