@@ -16,9 +16,10 @@ export default function Home(props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SearchBox {...props}/>
+      
+       <SearchBox {...props}/> 
       <SortMenu/>
-      <CarCard/>
+      <CarCard {...props}/>
     </>
   );
 }
@@ -27,11 +28,51 @@ export async function getServerSideProps(ctx) {
   const domain = ctx.req.headers["x-forwarded-host"]
     ? ctx.req.headers["x-forwarded-host"]
     : ctx.req.headers.host;
-  const res = await fetch(
+    const currentYear = new Date().getFullYear();
+    const res = await fetch(
     `https://api.hillzusers.com/api/dealership/advance/search/vehicles/get/${domain}`
   );
   const searchItem = await res.json();
+  const bodydata={
+    fuel_type:  "",
+    body_style:  "",
+    engine_cylinders: "",
+    year_end:  currentYear + 1,
+    price_low: null,
+    price_high:  null,
+    odometer_type: 2,
+    make: "",
+    model: "",
+    transmission: "",
+
+    drive_train: "",
+    doors: "",
+    interior_color: "",
+    Exterior_color: "",
+    sortKind: {
+      kind: "",
+      type: null,
+      order: 0,
+    },
+    keywords: "",
+    sold: "",
+    is_coming_soon:  "",
+    is_it_special:  null,
+    year_start:  "0",
+    odometer_low: null,
+    odometer_high: null,
+  }
+  const res2 = await fetch(
+    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=&limitv`
+  ,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json', 
+   },
+    body:JSON.stringify(bodydata),
+  });
+  const carItem = await res2.json();
   return {
-    props: { searchItem },
+    props: { searchItem , carItem },
   };
 }
