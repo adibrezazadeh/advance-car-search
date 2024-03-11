@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styles from "./SearchBox.module.css";
 import { FaSearch } from "react-icons/fa";
+import { useRouter } from 'next/router';
 
 function SearchBox({searchItem}) {
+  const router = useRouter();
   // set state for each filed of serach box and filter that change by make
   const [vehicleMake,setVehicleMake]=useState(Object.entries(searchItem.vehicleMake_full))
   const [vehicleModel,setVehicleModel]=useState(Object.entries(searchItem.vehicleModel_full))
@@ -175,7 +177,7 @@ function SearchBox({searchItem}) {
           <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`}>Search</button>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
-          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`}>Reset</button>
+          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={router.reload} >Reset</button>
           </div>
         </div>
       </div>

@@ -7,8 +7,13 @@ import SortMenu from '@/Components//SortMenu/SortMenu.jsx'
 import CarCard from '@/Components//CarCard/CarCard.jsx'
 import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
+import { useRouter } from 'next/router';
 
 export default function Home(props) {
+  const routerup = useRouter();
+  const [view,setView]=useState(true)
+  const [sort,setSort]=useState("")
+  console.log(routerup)
   return (
     <>
       <Head>
@@ -19,8 +24,8 @@ export default function Home(props) {
       </Head>
       
        <SearchBox {...props}/> 
-      <SortMenu {...props}/>
-      <CarCard {...props}/>
+      <SortMenu {...props} view={view} setView={setView} sort={sort} setSort={setSort} />
+      <CarCard {...props} view={view} />
     </>
   );
 }
@@ -74,6 +79,6 @@ export async function getServerSideProps(ctx) {
   });
   const carItem = await res2.json();
   return {
-    props: { searchItem , carItem },
+    props: { searchItem , carItem  },
   };
 }
