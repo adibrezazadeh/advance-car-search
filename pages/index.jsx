@@ -10,10 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 import { useRouter } from 'next/router';
 
 export default function Home(props) {
-  const routerup = useRouter();
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
-  console.log(routerup)
+  const[carList,setCarList]=useState(Object.entries(props.carItem))
   return (
     <>
       <Head>
@@ -23,9 +22,9 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-       <SearchBox {...props}/> 
+       <SearchBox {...props} setCarList={setCarList}/> 
       <SortMenu {...props} view={view} setView={setView} sort={sort} setSort={setSort} />
-      <CarCard {...props} view={view} />
+      <CarCard {...props} view={view} carList={carList} />
     </>
   );
 }
@@ -38,9 +37,10 @@ export async function getServerSideProps(ctx) {
     const res = await fetch(
     `https://api.hillzusers.com/api/dealership/advance/search/vehicles/get/${domain}`
   );
+ 
   const searchItem = await res.json();
   const bodydata={
-    fuel_type:  "",
+    fuel_type: "",
     body_style:  "",
     engine_cylinders: "",
     year_end:  currentYear + 1,

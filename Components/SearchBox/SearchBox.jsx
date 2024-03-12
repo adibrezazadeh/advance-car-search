@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import styles from "./SearchBox.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from 'next/router';
+import Link from "next/link";
+import { redirect } from "next/dist/server/api-utils";
+import Advancesearch from "../AdvanceSearch/Advancesearch";
 
-function SearchBox({searchItem}) {
+function SearchBox({searchItem , setCarList} ) {
   const router = useRouter();
+  
   // set state for each filed of serach box and filter that change by make
   const [vehicleMake,setVehicleMake]=useState(Object.entries(searchItem.vehicleMake_full))
   const [vehicleModel,setVehicleModel]=useState(Object.entries(searchItem.vehicleModel_full))
@@ -56,6 +60,23 @@ function SearchBox({searchItem}) {
     }
 
   }
+  const searchbtn=  ()=>{
+    const make=document.getElementById("selectBoxMake").value
+    const model=document.getElementById("selectBoxModel").value
+    const minyear=document.getElementById("selectBoxMinyear").value
+    const maxyear=document.getElementById("selectBoxMaxyear").value
+    const minkm=document.getElementById("selectBoxMinkm").value
+    const maxkm=document.getElementById("selectBoxMaxkm").value
+    const minprice=document.getElementById("selectBoxMinprice").value
+    const maxprice=document.getElementById("selectBoxMaxprice").value
+    const bodystyle=document.getElementById("selectBoxBodystyle").value
+    const engine=document.getElementById("selectBoxEngine").value
+    const color=document.getElementById("selectBoxColor").value
+    const fuel=document.getElementById("selectBoxFuel").value
+    const textsearch=document.getElementById("textsearch").value
+    router.replace(`?make=${make}&model=${model}&Minyear=${minyear}&Maxyear=${maxyear}&MinPrice=${minprice}&MaxPrice=${maxprice}&Minodometer=${minkm}&Maxodometer=${maxkm}&EngineCylinder=${engine}&Bodystyle=${bodystyle}&Fueltype=${fuel}&Exteriorcolor=${color}&keywords=${textsearch}`)
+    Advancesearch(router , setCarList);
+  }
   return (
     <div className={`container mt-5 pb-5 shadow ${styles.boxserach}`}>
       <div className="">
@@ -92,7 +113,7 @@ function SearchBox({searchItem}) {
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBoxMaxyear" id="selectBoxMaxyear" className="w-100 p-1">
-              <option value="">Max Year</option>
+              <option value="2025">Max Year</option>
               {vehicleYearFilter.sort((a,b)=>b[0]-a[0]).map((item)=>(
                   <option value={item[0]}>{item[0]}</option>
                 ))}  
@@ -167,14 +188,14 @@ function SearchBox({searchItem}) {
           
           <div className="col-lg-3 col-12 px-2 py-1">
             <input
+              id="textsearch"
               type="text"
               className="p-1 w-100"
               placeholder="Search (Make, Model, Price,...)"
-              value=""
             ></input>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
-          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`}>Search</button>
+          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={searchbtn}>Search</button>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
           <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={router.reload} >Reset</button>

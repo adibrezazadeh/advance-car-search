@@ -3,8 +3,8 @@ import styles from "./CarCard.module.css";
 import { FaLocationPin } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import SortMenu from "../SortMenu/SortMenu";
-export default function CarCard({ carItem, view   }) {
-  const [items, setItems] = useState(Object.entries(carItem));
+export default function CarCard({ carItem, view , carList   }) {
+  const [items, setItems] = useState(carList);
   // function for sperate number 3 , 3
   
   const sperateNum = (num) => {
@@ -19,9 +19,9 @@ export default function CarCard({ carItem, view   }) {
           {items.map((item) => (
             <div key={item[1].id} className="p-2 col-12 col-md-6 col-xl-4">
               <div className={`  shadow p-0 ${styles.boxcar}`}>
-                <div>
+                <div className="">
                   <div className="">
-                    <img
+                    <img 
                       src={
                         item[1].thumbnail_cover_image
                           ? `https://image123.azureedge.net${item[1].thumbnail_cover_image}`
