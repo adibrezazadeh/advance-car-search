@@ -98,7 +98,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMake" className="w-100 p-1" onChange={modelHandler} >
               <option value="">Any Make</option>
                 {vehicleMake.map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))} 
             </select>
           </div>
@@ -106,7 +106,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxModel" className="w-100 p-1 ">
               <option value="">Any Model</option>
                {vehicleModelFilter.map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -114,7 +114,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMinyear" className="w-100 p-1 ">
               <option value="">Min Year</option>
               {vehicleYearFilter.sort((a,b)=>a[0]-b[0]).map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -122,7 +122,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMaxyear" className="w-100 p-1">
               <option value="2025">Max Year</option>
               {vehicleYearFilter.sort((a,b)=>b[0]-a[0]).map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -130,7 +130,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMinkm" className="w-100 p-1 ">
               <option value="">Min KM</option>
               {vehicleOdometer.sort((a,b)=>a-b).map((item)=>(
-                  <option value={item}>{item}</option>
+                  <option key={item.id} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
@@ -138,7 +138,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMaxkm" className="w-100 p-1">
               <option value="">Max KM</option>
               {vehicleOdometer.sort((a,b)=>b-a).map((item)=>(
-                  <option value={item}>{item}</option>
+                  <option key={item.id} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
@@ -146,7 +146,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMinprice" className="w-100 p-1">
               <option value="">Min Price</option>
               {vehiclePrice.sort((a,b)=>a-b).map((item)=>(
-                  <option value={item}>{item}</option>
+                  <option key={item.id} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
@@ -154,7 +154,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxMaxprice" className="w-100 p-1">
               <option value="">Max Price</option>
               {vehiclePrice.sort((a,b)=>b-a).map((item)=>(
-                  <option value={item}>{item}</option>
+                  <option key={item.id} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
@@ -162,7 +162,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxBodystyle" className="w-100 p-1">
               <option value="">Any Body Style</option>
                 {vehicleBodyStyleFilter.map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -170,7 +170,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxEngine" className="w-100 p-1">
               <option value="">Any Engine</option>
               {vehicleEngineFilter.map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -178,7 +178,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxColor" className="w-100 p-1">
               <option value="">Any Colour</option>
               {vehicleColorFilter.map((item)=>(
-                  <option value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -188,7 +188,7 @@ function SearchBox({searchItem , setCarList} ) {
             <select name="selectBox" id="selectBoxFuel" className="w-100 p-1">
               <option value="">Any Fuel Type</option>
               {vehicleFuelFilter.map((item)=>(
-                  <option  value={item[0]}>{item[0]}</option>
+                  <option key={item[0].id}  value={item[0]}>{item[0]}</option>
                 ))} 
             </select>
           </div>
