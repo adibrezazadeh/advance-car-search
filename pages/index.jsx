@@ -13,7 +13,6 @@ export default function Home(props) {
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
   const[carList,setCarList]=useState(props.carItem)
-  console.log(carList)
   return (
     <>
       <Head>
@@ -41,33 +40,33 @@ export async function getServerSideProps(ctx) {
  
   const searchItem = await res.json();
   const bodydata={
-    fuel_type: "",
-    body_style:  "",
-    engine_cylinders: "",
-    year_end:  currentYear + 1,
-    year_start:1998,
-    price_low: null,
-    price_high:  null,
+    fuel_type: ctx.query.Fueltype? ctx.query.Fueltype :"",
+    body_style:  ctx.query.Bodystyle? ctx.query.Bodystyle :"",
+    engine_cylinders: ctx.query.EngineCylinder? ctx.query.EngineCylinder :"",
+    year_end: ctx.query.Maxyear? Number(ctx.query.Maxyear) : currentYear + 1,
+    year_start:ctx.query.Minyear? Number(ctx.query.Minyear) :1998,
+    price_low:ctx.query.MinPrice? Number(ctx.query.MinPrice) : null,
+    price_high: ctx.query.MaxPrice? Number(ctx.query.MaxPrice) : null,
     odometer_type: 2,
-    make: "",
-    model: "",
+    make: ctx.query.make? ctx.query.make :"",
+    model: ctx.query.model? ctx.query.model :"",
     transmission: "",
 
     drive_train: "",
     doors: "",
     interior_color: "",
-    Exterior_color: "",
+    Exterior_color: ctx.query.Exteriorcolor? ctx.query.Exteriorcolor :"",
     sortKind: {
       kind: "",
       type: null,
       order: 0,
     },
-    keywords: "",
+    keywords: ctx.query.keywords? ctx.query.keywords :"",
     sold: "",
     is_coming_soon:  "",
     is_it_special:  null,
-    odometer_low: null,
-    odometer_high: null,
+    odometer_low: ctx.query.Minodometer? Number(ctx.query.Minodometer) : null,
+    odometer_high: ctx.query.Maxodometer? Number(ctx.query.Maxodometer) : null,
   }
   const res2 = await fetch(
     `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=1&limit=10`

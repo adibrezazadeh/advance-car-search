@@ -77,10 +77,12 @@ function SearchBox({searchItem , setCarList} ) {
       Exteriorcolor:document.getElementById("selectBoxColor").value,
       keywords:document.getElementById("textsearch").value,
     };
-     router.push({
-       pathname: router.pathname,
-        query: { ...router.query, ...newQueryParams },
-      });
+       router.push({
+        pathname: router.pathname,
+         query: { ...router.query, ...newQueryParams },
+        
+       }, undefined, { shallow: true });
+      
     console.log(router)
     Advancesearch(router , setCarList ,newQueryParams);
   }
