@@ -2,14 +2,14 @@ import React, { useCallback, useContext, useState } from "react";
 import styles from "./SortMenu.module.css";
 import { FaList } from "react-icons/fa6";
 import { HiViewGrid } from "react-icons/hi";
-function SortMenu({carItem , view , setView , sort , setSort}) {
-  const itemsNum =Object.entries(carItem).length;
+function SortMenu({  view , setView , sort , setSort,carNumber}) {
+  
   
   return (
     <>
       <div className="container mt-5 mb-2 ">
         <div className="mt-2">
-          <p className={styles.Headersort}>{itemsNum} Vehicles</p>
+          <p className={styles.Headersort}>{carNumber} Vehicles</p>
         </div>
         <div className="d-flex justify-content-between">
           <div className="d-flex  ">
