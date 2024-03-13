@@ -4,7 +4,6 @@ import { FaLocationPin } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import SortMenu from "../SortMenu/SortMenu";
 export default function CarCard({ carItem, view , carList   }) {
-  const [items, setItems] = useState(carList);
   // function for sperate number 3 , 3
   
   const sperateNum = (num) => {
@@ -16,15 +15,15 @@ export default function CarCard({ carItem, view , carList   }) {
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
         <div className={"row "}>
-          {items.map((item) => (
-            <div key={item[1].id} className="p-2 col-12 col-md-6 col-xl-4">
+          {carList.map((item) => (
+            <div key={item.id} className="p-2 col-12 col-md-6 col-xl-4">
               <div className={`  shadow p-0 ${styles.boxcar}`}>
                 <div className="">
                   <div className="">
                     <img 
                       src={
-                        item[1].thumbnail_cover_image
-                          ? `https://image123.azureedge.net${item[1].thumbnail_cover_image}`
+                        item.thumbnail_cover_image
+                          ? `https://image123.azureedge.net${item.thumbnail_cover_image}`
                           : "https://image123.azureedge.net/dmndautosales/thumb-2021-Volkswagen-Passat-3793359019297211.jpg"
                       }
                       className={` w-100 ${styles.carphoto}`}
@@ -45,7 +44,7 @@ export default function CarCard({ carItem, view , carList   }) {
                     </div>
                     <p className={`p-0 m-0 ${styles.carprice}`}>
                       $
-                      {item[1].sell_price ? sperateNum(item[1].sell_price) : ""}
+                      {item.sell_price ? sperateNum(item.sell_price) : ""}
                     </p>
                   </div>
                   <div className="mx-3">
@@ -53,11 +52,11 @@ export default function CarCard({ carItem, view , carList   }) {
                       className={`p-0 m-0 text-decoration-none text-start ${styles.cartitle}`}
                       href="#"
                     >
-                      {item[1].Vehicle.model_year} {item[1].Vehicle.make}{" "}
-                      {item[1].Vehicle.model} {item[1].Vehicle.drive_type}
+                      {item.Vehicle.model_year} {item.Vehicle.make}{" "}
+                      {item.Vehicle.model} {item.Vehicle.drive_type}
                     </a>
                     <p className={`${styles.cartitlesub} m-0`}>
-                      {item[1].Vehicle.trim ? item[1].Vehicle.trim : ""}
+                      {item.Vehicle.trim ? item.Vehicle.trim : ""}
                     </p>
                   </div>
                   <div>
@@ -71,7 +70,7 @@ export default function CarCard({ carItem, view , carList   }) {
                         Mileage :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].odometer ? sperateNum(item[1].odometer) : ""}{" "}
+                        {item.odometer ? sperateNum(item.odometer) : ""}{" "}
                         KM
                       </p>
                     </div>
@@ -80,8 +79,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Engine :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].Vehicle.engine_type
-                          ? item[1].Vehicle.engine_type
+                        {item.Vehicle.engine_type
+                          ? item.Vehicle.engine_type
                           : ""}
                       </p>
                     </div>
@@ -90,8 +89,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Drivetrain :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].Vehicle.drive_type
-                          ? item[1].Vehicle.drive_type
+                        {item.Vehicle.drive_type
+                          ? item.Vehicle.drive_type
                           : ""}
                       </p>
                     </div>
@@ -100,8 +99,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Fuel Type :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].Vehicle.fuel_type
-                          ? item[1].Vehicle.fuel_type
+                        {item.Vehicle.fuel_type
+                          ? item.Vehicle.fuel_type
                           : ""}
                       </p>
                     </div>
@@ -110,8 +109,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Transmission : :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].Vehicle.Transmission
-                          ? item[1].Vehicle.Transmission.name
+                        {item.Vehicle.Transmission
+                          ? item.Vehicle.Transmission.name
                           : ""}
                       </p>
                     </div>
@@ -120,7 +119,7 @@ export default function CarCard({ carItem, view , carList   }) {
                         Stock # :
                       </p>
                       <p className={`col-6 ${styles.aboutt2} p-2 m-0`}>
-                        {item[1].stock_NO ? item[1].stock_NO : ""}
+                        {item.stock_NO ? item.stock_NO : ""}
                       </p>
                     </div>
                   </div>
@@ -198,14 +197,14 @@ export default function CarCard({ carItem, view , carList   }) {
       {/* display in list */}
       <div className={`container ${view ? "d-none" : " d-lg-block d-none"}`}>
         <div className="">
-          {items.map((item) => (
-            <div className="shadow my-2 row ">
+          {carList.map((item) => (
+            <div key={item.id} className="shadow my-2 row ">
               {/* pic */}
               <div className="p-2 col-3   ">
                 <img
                   src={
-                    item[1].thumbnail_cover_image
-                      ? `https://image123.azureedge.net${item[1].thumbnail_cover_image}`
+                    item.thumbnail_cover_image
+                      ? `https://image123.azureedge.net${item.thumbnail_cover_image}`
                       : "https://image123.azureedge.net/dmndautosales/thumb-2021-Volkswagen-Passat-3793359019297211.jpg"
                   }
                   className={`col-12  ${styles.carphoto}`}
@@ -221,17 +220,17 @@ export default function CarCard({ carItem, view , carList   }) {
                       className={`p-0 m-0 text-decoration-none text-start ${styles.cartitle}`}
                       href="#"
                     >
-                      {item[1].Vehicle.model_year} {item[1].Vehicle.make}{" "}
-                      {item[1].Vehicle.model} {item[1].Vehicle.drive_type}
+                      {item.Vehicle.model_year} {item.Vehicle.make}{" "}
+                      {item.Vehicle.model} {item.Vehicle.drive_type}
                     </a>
                     <p className={`${styles.cartitlesub} m-0`}>
-                      {item[1].Vehicle.trim ? item[1].Vehicle.trim : ""}
+                      {item.Vehicle.trim ? item.Vehicle.trim : ""}
                     </p>
                   </div>
                   <div>
                     <p className={`p-0 m-0 ${styles.carprice}`}>
                       $
-                      {item[1].sell_price ? sperateNum(item[1].sell_price) : ""}
+                      {item.sell_price ? sperateNum(item.sell_price) : ""}
                     </p>
                   </div>
                 </div>
@@ -245,8 +244,8 @@ export default function CarCard({ carItem, view , carList   }) {
                           Body Style :
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                          {item[1].Vehicle.BodyStyle
-                            ? item[1].Vehicle.BodyStyle.name
+                          {item.Vehicle.BodyStyle
+                            ? item.Vehicle.BodyStyle.name
                             : ""}
                         </p>
                       </div>
@@ -255,8 +254,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Engine:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                          {item[1].Vehicle.engine_type
-                            ? item[1].Vehicle.engine_type
+                          {item.Vehicle.engine_type
+                            ? item.Vehicle.engine_type
                             : ""}
                         </p>
                       </div>
@@ -265,8 +264,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Exterior Color:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                          {item[1].Vehicle.exterior_color
-                            ? item[1].Vehicle.exterior_color.name
+                          {item.Vehicle.exterior_color
+                            ? item.Vehicle.exterior_color.name
                             : ""}
                         </p>
                       </div>
@@ -275,8 +274,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Doors:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                          {item[1].Vehicle.doors
-                            ? item[1].Vehicle.doors
+                          {item.Vehicle.doors
+                            ? item.Vehicle.doors
                             : ""}
                         </p>
                       </div>
@@ -285,8 +284,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Vin:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                          {item[1].Vehicle.vin_number
-                            ? item[1].Vehicle.vin_number
+                          {item.Vehicle.vin_number
+                            ? item.Vehicle.vin_number
                             : ""}
                         </p>
                       </div>
@@ -300,7 +299,7 @@ export default function CarCard({ carItem, view , carList   }) {
                         Odometer:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                        {item[1].odometer ? sperateNum(item[1].odometer) : ""}{" "}
+                        {item.odometer ? sperateNum(item.odometer) : ""}{" "}
                         KM
                         </p>
                       </div>
@@ -309,8 +308,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Transmission:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                        {item[1].Vehicle.Transmission
-                          ? item[1].Vehicle.Transmission.name
+                        {item.Vehicle.Transmission
+                          ? item.Vehicle.Transmission.name
                           : ""}
                         </p>
                       </div>
@@ -319,8 +318,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Drivetrain:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                        {item[1].Vehicle.drive_type
-                          ? item[1].Vehicle.drive_type
+                        {item.Vehicle.drive_type
+                          ? item.Vehicle.drive_type
                           : ""}
                         </p>
                       </div>
@@ -329,7 +328,7 @@ export default function CarCard({ carItem, view , carList   }) {
                         Stock #:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                        {item[1].stock_NO ? item[1].stock_NO : ""}
+                        {item.stock_NO ? item.stock_NO : ""}
                         </p>
                       </div>
                       <div className="d-flex col-12 justify-content-between px-2 pb-2 ">
@@ -337,8 +336,8 @@ export default function CarCard({ carItem, view , carList   }) {
                         Fuel Type:
                         </p>
                         <p className={`col-6 ${styles.aboutt1}  m-0 text-end`}>
-                        {item[1].Vehicle.fuel_type
-                          ? item[1].Vehicle.fuel_type
+                        {item.Vehicle.fuel_type
+                          ? item.Vehicle.fuel_type
                           : ""}
                         </p>
                       </div>

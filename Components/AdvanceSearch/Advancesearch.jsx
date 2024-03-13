@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import CarCard from '../CarCard/CarCard';
 
-async function Advancesearch(router , setCarList) {
-    console.log(router.query);
+async function Advancesearch(router , setCarList,newQueryParams) {
+    console.log(router);
       // ?make=${make}&model=${model}&Minyear=${minyear}&Maxyear=${maxyear}&MinPrice=${minprice}&MaxPrice=${maxprice}&Minodometer=${minkm}&Maxodometer=${maxkm}&EngineCylinder=${engine}&Bodystyle=${bodystyle}&Fueltype=${fuel}&Exteriorcolor=${color}&keywords=${textsearch}`)
     const currentYear = new Date().getFullYear();
     const bodydata={
@@ -11,10 +11,11 @@ async function Advancesearch(router , setCarList) {
         body_style:"",
         engine_cylinders: "",
         year_end:  currentYear + 1,
+        year_start:1977,
         price_low: null,
         price_high:  null,
         odometer_type: 2,
-        make: router.query?.make,
+        make:  newQueryParams.make,
         model: "",
         transmission: "",
     
@@ -31,7 +32,6 @@ async function Advancesearch(router , setCarList) {
         sold: "",
         is_coming_soon:  "",
         is_it_special:  null,
-        year_start:  "0",
         odometer_low: null,
         odometer_high: null,
       }
@@ -47,7 +47,7 @@ async function Advancesearch(router , setCarList) {
       console.log("its okkkkkkkkkkkkkkkkkkkk")
       const carItem = await res2.json();
       console.log (carItem)
-      setCarList(Object.entries(carItem));
+      setCarList(carItem);
 }
 
 export default Advancesearch

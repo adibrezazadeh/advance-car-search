@@ -8,6 +8,7 @@ import Advancesearch from "../AdvanceSearch/Advancesearch";
 import { Formik } from "formik";
 function SearchBox({searchItem , setCarList} ) {
   const router = useRouter();
+
   
   // set state for each filed of serach box and filter that change by make
   const [vehicleMake,setVehicleMake]=useState(Object.entries(searchItem.vehicleMake_full))
@@ -76,13 +77,12 @@ function SearchBox({searchItem , setCarList} ) {
       Exteriorcolor:document.getElementById("selectBoxColor").value,
       keywords:document.getElementById("textsearch").value,
     };
-   router.push({
-      pathname: router.pathname,
-      query: { ...router.query, ...newQueryParams },
-    });
-    
+     router.push({
+       pathname: router.pathname,
+        query: { ...router.query, ...newQueryParams },
+      });
     console.log(router)
-    // Advancesearch(router , setCarList);
+    Advancesearch(router , setCarList ,newQueryParams);
   }
   return (
     <div className={`container mt-5 pb-5 shadow ${styles.boxserach}`}>
@@ -97,88 +97,88 @@ function SearchBox({searchItem , setCarList} ) {
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxMake" className="w-100 p-1" onChange={modelHandler} >
               <option value="">Any Make</option>
-                {vehicleMake.map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+                {vehicleMake.map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))} 
             </select>
           </div>
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxModel" className="w-100 p-1 ">
               <option value="">Any Model</option>
-               {vehicleModelFilter.map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+               {vehicleModelFilter.map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMinyear" className="w-100 p-1 ">
               <option value="">Min Year</option>
-              {vehicleYearFilter.sort((a,b)=>a[0]-b[0]).map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+              {vehicleYearFilter.sort((a,b)=>a[0]-b[0]).map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMaxyear" className="w-100 p-1">
               <option value="2025">Max Year</option>
-              {vehicleYearFilter.sort((a,b)=>b[0]-a[0]).map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+              {vehicleYearFilter.sort((a,b)=>b[0]-a[0]).map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMinkm" className="w-100 p-1 ">
               <option value="">Min KM</option>
-              {vehicleOdometer.sort((a,b)=>a-b).map((item)=>(
-                  <option key={item.id} value={item}>{item}</option>
+              {vehicleOdometer.sort((a,b)=>a-b).map((item,index)=>(
+                  <option key={index+1} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMaxkm" className="w-100 p-1">
               <option value="">Max KM</option>
-              {vehicleOdometer.sort((a,b)=>b-a).map((item)=>(
-                  <option key={item.id} value={item}>{item}</option>
+              {vehicleOdometer.sort((a,b)=>b-a).map((item,index)=>(
+                  <option key={index+1} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMinprice" className="w-100 p-1">
               <option value="">Min Price</option>
-              {vehiclePrice.sort((a,b)=>a-b).map((item)=>(
-                  <option key={item.id} value={item}>{item}</option>
+              {vehiclePrice.sort((a,b)=>a-b).map((item,index)=>(
+                  <option key={index+1} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
             <select name="selectBox" id="selectBoxMaxprice" className="w-100 p-1">
               <option value="">Max Price</option>
-              {vehiclePrice.sort((a,b)=>b-a).map((item)=>(
-                  <option key={item.id} value={item}>{item}</option>
+              {vehiclePrice.sort((a,b)=>b-a).map((item,index)=>(
+                  <option key={index+1} value={item}>{item}</option>
                 ))} 
             </select>
           </div>
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxBodystyle" className="w-100 p-1">
               <option value="">Any Body Style</option>
-                {vehicleBodyStyleFilter.map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+                {vehicleBodyStyleFilter.map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxEngine" className="w-100 p-1">
               <option value="">Any Engine</option>
-              {vehicleEngineFilter.map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+              {vehicleEngineFilter.map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxColor" className="w-100 p-1">
               <option value="">Any Colour</option>
-              {vehicleColorFilter.map((item)=>(
-                  <option key={item[0].id} value={item[0]}>{item[0]}</option>
+              {vehicleColorFilter.map((item,index)=>(
+                  <option key={index+1} value={item[0]}>{item[0]}</option>
                 ))}  
             </select>
           </div>
@@ -187,8 +187,8 @@ function SearchBox({searchItem , setCarList} ) {
           <div className="col-lg-3 col-12 px-2 py-1">
             <select name="selectBox" id="selectBoxFuel" className="w-100 p-1">
               <option value="">Any Fuel Type</option>
-              {vehicleFuelFilter.map((item)=>(
-                  <option key={item[0].id}  value={item[0]}>{item[0]}</option>
+              {vehicleFuelFilter.map((item,index)=>(
+                  <option key={index+1}  value={item[0]}>{item[0]}</option>
                 ))} 
             </select>
           </div>

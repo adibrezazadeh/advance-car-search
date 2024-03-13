@@ -12,7 +12,8 @@ import { useRouter } from 'next/router';
 export default function Home(props) {
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
-  const[carList,setCarList]=useState(Object.entries(props.carItem))
+  const[carList,setCarList]=useState(props.carItem)
+  console.log(carList)
   return (
     <>
       <Head>
@@ -44,6 +45,7 @@ export async function getServerSideProps(ctx) {
     body_style:  "",
     engine_cylinders: "",
     year_end:  currentYear + 1,
+    year_start:1998,
     price_low: null,
     price_high:  null,
     odometer_type: 2,
@@ -64,7 +66,6 @@ export async function getServerSideProps(ctx) {
     sold: "",
     is_coming_soon:  "",
     is_it_special:  null,
-    year_start:  "0",
     odometer_low: null,
     odometer_high: null,
   }
