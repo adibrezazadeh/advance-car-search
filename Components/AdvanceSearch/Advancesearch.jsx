@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import CarCard from '../CarCard/CarCard';
 
-async function Advancesearch(router , setCarList,newQueryParams,setCarNumber) {
+async function Advancesearch(router , setCarList,newQueryParams,setCarNumber,page) {
       // ?make=${make}&model=${model}&Minyear=${minyear}&Maxyear=${maxyear}&MinPrice=${minprice}&MaxPrice=${maxprice}&Minodometer=${minkm}&Maxodometer=${maxkm}&EngineCylinder=${engine}&Bodystyle=${bodystyle}&Fueltype=${fuel}&Exteriorcolor=${color}&keywords=${textsearch}`)
     const currentYear = new Date().getFullYear();
     const bodydata={
@@ -43,9 +43,7 @@ async function Advancesearch(router , setCarList,newQueryParams,setCarNumber) {
        },
         body:JSON.stringify(bodydata),
       });
-      console.log("its okkkkkkkkkkkkkkkkkkkk")
       const carItem = await res2.json();
-      console.log (carItem)
       const res3 = await fetch(
         `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=&limit=&keywords=${newQueryParams.keywords}`
       ,{

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { redirect } from "next/dist/server/api-utils";
 import Advancesearch from "../AdvanceSearch/Advancesearch";
 import { Formik } from "formik";
-function SearchBox({searchItem , setCarList,setCarNumber } ) {
+function SearchBox({searchItem , setCarList,setCarNumber ,page } ) {
   const router = useRouter();
 
   
@@ -84,7 +84,7 @@ function SearchBox({searchItem , setCarList,setCarNumber } ) {
        }, undefined, { shallow: true });
       
     console.log(router)
-    Advancesearch(router , setCarList ,newQueryParams,setCarNumber );
+    Advancesearch(router , setCarList ,newQueryParams,setCarNumber ,page );
   }
   return (
     <div className={`container mt-5 pb-5 shadow ${styles.boxserach}`}>

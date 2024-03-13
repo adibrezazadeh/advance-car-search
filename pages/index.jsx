@@ -12,6 +12,7 @@ export default function Home(props) {
   const [sort,setSort]=useState("")
   const[carList,setCarList]=useState(props.carItem)
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
+  const[page,setPage]=useState(1)
   return (
     <>
       <Head>
@@ -21,9 +22,9 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} /> 
+       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} page={page} /> 
       <SortMenu {...props} view={view} setView={setView} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} view={view} carList={carList} />
+      <CarCard {...props} view={view} carList={carList} carNumber={carNumber} page={page} setPage={setPage} />
     </>
   );
 }
@@ -68,7 +69,7 @@ export async function getServerSideProps(ctx) {
     odometer_high: ctx.query.Maxodometer? Number(ctx.query.Maxodometer) : null,
   }
   const res2 = await fetch(
-    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=1&limit=10&keywords=${bodydata.keywords}`
+    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=1&limit=10&keywords=${bodydata.keywords}&`
   ,{
     method: 'POST',
     headers: {
@@ -88,6 +89,6 @@ export async function getServerSideProps(ctx) {
   });
   const carNumber = await res3.json();
   return {
-    props: { searchItem , carItem,carNumber  },
+    props: { searchItem , carItem,carNumber   },
   };
 }
