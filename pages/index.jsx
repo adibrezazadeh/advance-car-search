@@ -7,8 +7,6 @@ import SortMenu from '@/Components//SortMenu/SortMenu.jsx'
 import CarCard from '@/Components//CarCard/CarCard.jsx'
 import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
-import { useRouter } from 'next/router';
-
 export default function Home(props) {
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
