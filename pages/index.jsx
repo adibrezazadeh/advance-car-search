@@ -12,7 +12,6 @@ export default function Home(props) {
   const [sort,setSort]=useState("")
   const[carList,setCarList]=useState(props.carItem)
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
-  const[page,setPage]=useState(1)
   return (
     <>
       <Head>
@@ -22,9 +21,9 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} page={page} /> 
+       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber}  /> 
       <SortMenu {...props} view={view} setView={setView} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} view={view} carList={carList} carNumber={carNumber} page={page} setPage={setPage} />
+      <CarCard {...props} view={view} setCarList={setCarList} carList={carList} carNumber={carNumber} />
     </>
   );
 }

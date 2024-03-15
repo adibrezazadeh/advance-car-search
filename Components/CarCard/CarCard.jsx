@@ -5,73 +5,71 @@ import { FaPhoneAlt } from "react-icons/fa";
 import SortMenu from "../SortMenu/SortMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
-export default function CarCard({ carItem, view , carList ,carNumber ,page , setPage  }) {
+export default function CarCard({ carItem, view , carList ,setCarList ,carNumber  }) {
+  const rout=useRouter();
   // function for sperate number 3 , 3
-  // let npage=1;
-  // const rout=useRouter();
-  // console.log(rout)
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
-  // const [posts, setPosts] = useState(carList);
+  const [hasMore, setHasMore] = useState(true);
+  const currentYear = new Date().getFullYear();
+  const bodydata={
+    fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
+      body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
+      engine_cylinders: rout.query.EngineCylinder? rout.query.EngineCylinder :"",
+      year_end: rout.query.Maxyear? Number(rout.query.Maxyear) : currentYear + 1,
+      year_start:rout.query.Minyear? Number(rout.query.Minyear) :1998,
+      price_low:rout.query.MinPrice? Number(rout.query.MinPrice) : null,
+      price_high: rout.query.MaxPrice? Number(rout.query.MaxPrice) : null,
+      odometer_type: 2,
+      make: rout.query.make? rout.query.make :"",
+      model: rout.query.model? rout.query.model :"",
+      transmission: "",
   
-//   const [hasMore, setHasMore] = useState(true);
-//   const currentYear = new Date().getFullYear();
-//   const bodydata={
-//     fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
-//     body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
-//     engine_cylinders: rout.query.EngineCylinder? rout.query.EngineCylinder :"",
-//     year_end: rout.query.Maxyear? Number(rout.query.Maxyear) : currentYear + 1,
-//     year_start:rout.query.Minyear? Number(rout.query.Minyear) :1998,
-//     price_low:rout.query.MinPrice? Number(rout.query.MinPrice) : null,
-//     price_high: rout.query.MaxPrice? Number(rout.query.MaxPrice) : null,
-//     odometer_type: 2,
-//     make: rout.query.make? rout.query.make :"",
-//     model: rout.query.model? rout.query.model :"",
-//     transmission: "",
-
-//     drive_train: "",
-//     doors: "",
-//     interior_color: "",
-//     Exterior_color: rout.query.Exteriorcolor? rout.query.Exteriorcolor :"",
-//     sortKind: {
-//       kind: "",
-//       type: null,
-//       order: 0,
-//     },
-//     keywords: rout.query.keywords? rout.query.keywords :"",
-//     sold: "",
-//     is_coming_soon:  "",
-//     is_it_special:  null,
-//     odometer_low: rout.query.Minodometer? Number(rout.query.Minodometer) : null,
-//     odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
-//   }
-//   const getMorePost = async () => {
-//     npage=npage+1
-//     const res = await fetch(
-//       `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${npage}&limit=10&keywords=${bodydata.keywords}&`
-//     ,{
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json', 
-//      },
-//       body:JSON.stringify(bodydata),
-//     });
-//     const newPosts = await res.json();
-//     setPosts((post) => [...post, ...newPosts]);
-//  };
+      drive_train: "",
+      doors: "",
+      interior_color: "",
+      Exterior_color: rout.query.Exteriorcolor? rout.query.Exteriorcolor :"",
+      sortKind: {
+        kind: "",
+        type: null,
+        order: 0,
+      },
+      keywords: rout.query.keywords? rout.query.keywords :"",
+      sold: "",
+      is_coming_soon:  "",
+      is_it_special:  null,
+      odometer_low: rout.query.Minodometer? Number(rout.query.Minodometer) : null,
+      odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
+    }
+    let a=0;
+    const getMorePost = async () => {
+    
+    
+    const res = await fetch(
+      `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${a+1}&limit=10&keywords=${bodydata.keywords}&`
+    ,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 
+     },
+      body:JSON.stringify(bodydata),
+    });
+    const newPosts = await res.json();
+    setCarList((carList) => [...carList, ...newPosts]);
+ };
   return (
     <>
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
-      {/* <InfiniteScroll 
-      dataLength={carNumber ? carNumber : []}
-      next={getMorePost}
+       <InfiniteScroll 
+      dataLength={carNumber}
+      next={()=>{a=a+1;getMorePost()}}
       hasMore={hasMore}
       loader={<h3>Loading...</h3>}
       endMessage={<h4>Nothing more to show</h4>}
-      > */}
+      >
         <div className={"row "}>
           {carList.map((item) => (
             <div key={item.id} className="p-2 col-12 col-md-6 col-xl-4">
@@ -251,7 +249,7 @@ export default function CarCard({ carItem, view , carList ,carNumber ,page , set
             </div>
           ))}
         </div>
-      {/* </InfiniteScroll> */}
+      </InfiniteScroll>
       </div>
       {/* display in list */}
       <div className={`container ${view ? "d-none" : " d-lg-block d-none"}`}>

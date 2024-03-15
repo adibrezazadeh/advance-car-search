@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import CarCard from '../CarCard/CarCard';
 
-async function Advancesearch(router , setCarList,newQueryParams,setCarNumber,page) {
+async function Advancesearch(router , setCarList,newQueryParams,setCarNumber) {
       // ?make=${make}&model=${model}&Minyear=${minyear}&Maxyear=${maxyear}&MinPrice=${minprice}&MaxPrice=${maxprice}&Minodometer=${minkm}&Maxodometer=${maxkm}&EngineCylinder=${engine}&Bodystyle=${bodystyle}&Fueltype=${fuel}&Exteriorcolor=${color}&keywords=${textsearch}`)
     const currentYear = new Date().getFullYear();
     const bodydata={
