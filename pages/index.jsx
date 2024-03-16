@@ -14,7 +14,6 @@ export default function Home(props) {
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
   const [anum,setAnum]=useState(0)
   useEffect(()=>{
-    console.log("car number has upgrated  ==",carNumber)
     setAnum(carNumber-10)
   },[carNumber])
   return (

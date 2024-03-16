@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SearchBox.module.css";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from 'next/router';
@@ -6,10 +6,11 @@ import Link from "next/link";
 import { redirect } from "next/dist/server/api-utils";
 import Advancesearch from "../AdvanceSearch/Advancesearch";
 import { Formik } from "formik";
+import proShow from '../proShow/proShow'
 function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
   const router = useRouter();
-
-  
+  const[pro,setPro]=useState("");
+  const[itemsPro,setItemsPro]=useState([]);
   // set state for each filed of serach box and filter that change by make
   const [vehicleMake,setVehicleMake]=useState(Object.entries(searchItem.vehicleMake_full))
   const [vehicleModel,setVehicleModel]=useState(Object.entries(searchItem.vehicleModel_full))
@@ -26,7 +27,10 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
   const [vehicleColorFilter,setVehicleColorFilter]=useState(vehicleColor)
   const [vehicleFuel,setVehicleFuel]=useState(Object.entries(searchItem.vehicleFuel_type_full))
   const [vehicleFuelFilter,setVehicleFuelFilter]=useState(vehicleFuel)
-
+  const sperateNum = (num) => {
+    const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return sperateNumber;
+  };
   const modelHandler = (event)=>{
     // set any make filter
     if (event.target.value==""){
@@ -85,6 +89,11 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
       
     Advancesearch(sort , setCarList ,newQueryParams,setCarNumber  );
   }
+  useEffect(()=>{
+    if (pro!=""){
+      proShow(router,pro,setItemsPro,sort)
+    } 
+  },[pro])
   return (
     <div className={`container mt-5 pb-5 shadow ${styles.boxserach}`}>
       <div className="">
@@ -194,13 +203,45 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
             </select>
           </div>
           
-          <div className="col-lg-3 col-12 px-2 py-1">
+          <div className={` col-lg-3 col-12 px-2 py-1 position-relative`}>
             <input
               id="textsearch"
               type="text"
-              className="p-1 w-100"
+              className={`${styles.headprobox} p-1 w-100 `}
               placeholder="Search (Make, Model, Price,...)"
-            ></input>
+              onChange={async (e)=>{await setPro(e.target.value);}}
+            >
+            </input>
+            <div className={`w-100 p-2 overflow-auto ${styles.proBox}`}>
+                {itemsPro.map((itempro)=>(
+                  <div key={itempro.id} className="d-flex">
+                    <div className="p-2">
+                    <img 
+                      src={
+                        itempro.thumbnail_cover_image
+                          ? `https://image123.azureedge.net${itempro.thumbnail_cover_image}`
+                          : "https://image123.azureedge.net/dmndautosales/thumb-2021-Volkswagen-Passat-3793359019297211.jpg"
+                      }
+                      className={` ${styles.propic}`}
+                      alt="car"
+                    />
+                    </div>
+                    <div className="text-start p-0 m-0">
+                      <div className={`${styles.headpro} p-0 m-0`}>
+                        <p className="p-0 m-0">{itempro.Vehicle.model_year} {itempro.Vehicle.make}{" "}
+                      {itempro.Vehicle.model}</p>
+                      </div>
+                      <div className={`${styles.bodypro} p-0 m-0`}>
+                        <p className="p-0 m-0">Odometer : {itempro.odometer? sperateNum(itempro.odometer):""}</p>
+                        <p className="p-0 m-0">Stock # : {itempro.stock_NO?itempro.stock_NO:""}</p>
+                        <p className="p-0 m-0">Price: {itempro.sell_price?sperateNum(itempro.sell_price):""} $</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+                )}
+            </div> 
+            
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
           <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={(e)=>{e.preventDefault() ; searchbtn()} }>Search</button>

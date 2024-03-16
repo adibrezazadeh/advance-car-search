@@ -6,7 +6,6 @@ import sortView from "../sortview/sortView";
 import { useRouter } from "next/router";
 function SortMenu({ view , setView , sort , setSort,carNumber,setCarList}) {
   const router=useRouter()
-  console.log("in sort menu",carNumber)
   return (
     <>
       <div className="container mt-5 mb-2 ">

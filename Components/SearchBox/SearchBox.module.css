@@ -33,3 +33,32 @@
     color: #000;
     background-color: white;
 }
+.proBox{
+    height: 200px;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    z-index: 1;
+    display: none;
+}
+.propic{
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.headprobox:focus + .proBox{
+    display: block;
+}
+.headpro{
+    color: #61677a;
+    font-size: 14px;
+}
+.bodypro{
+    color: #898989;
+    font-size: 12px;
+}

@@ -60,7 +60,6 @@ export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum
     await setAnum(anum-10)
     setCarList((carList) => [...carList, ...newPosts]);
  };
- console.log("anum in car card   ",anum)
  useEffect( ()=>{
   if (anum<1){
     setHasMore(false)
@@ -81,7 +80,6 @@ export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum
       next={async()=>{getMorePost()}}
       hasMore={hasMore}
       loader={<h3>Loading...</h3>}
-      endMessage={<h4>Nothing more to show</h4>}
       >
         <div className={"row "}>
           {carList.map((item) => (
