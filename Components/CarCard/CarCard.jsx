@@ -6,17 +6,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import next from "next";
-export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum  }) {
+export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum ,page,setPage , hasMore , setHasMore  }) {
   const rout=useRouter();
   // function for sperate number 3 , 3
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
-  const [hasMore,setHasMore]=useState(true);
   const currentYear = new Date().getFullYear();
-  
-    const [page,setPage]=useState(1)
     const getMorePost = async () => {
       const bodydata={
         fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
@@ -57,28 +54,30 @@ export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum
       body:JSON.stringify(bodydata),
     });
     const newPosts = await res.json();
-    await setAnum(anum-10)
+    await setAnum(anum-10);
     setCarList((carList) => [...carList, ...newPosts]);
  };
  useEffect( ()=>{
-  if (anum<1){
-    setHasMore(false)
-    
-  }
-  else{
-    setHasMore(true)
+     
+  if (anum>1){
+    setHasMore(true);
     setPage(page+1);
   }
- },[carList])
- 
+  else{
+    
+    setHasMore(false)
+  }
+ },[anum])
+ console.log(anum);
+ console.log(page);
   return (
     <>
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
        <InfiniteScroll 
       dataLength={anum}
-      next={async()=>{getMorePost()}}
       hasMore={hasMore}
+      next={()=>getMorePost()}
       loader={<h3>Loading...</h3>}
       >
         <div className={"row "}>

@@ -13,9 +13,12 @@ export default function Home(props) {
   const[carList,setCarList]=useState(props.carItem)
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
   const [anum,setAnum]=useState(0)
+  const [page,setPage]=useState(1)
+  const [hasMore,setHasMore]=useState(true);
   useEffect(()=>{
-    setAnum(carNumber-10)
+    setAnum(carNumber)
   },[carNumber])
+
   return (
     <>
       <Head>
@@ -27,7 +30,7 @@ export default function Home(props) {
       
        <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} sort={sort}  /> 
       <SortMenu {...props} view={view} setView={setView} setCarList={setCarList} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} anum={anum} setAnum={setAnum} />
+      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} anum={anum} setAnum={setAnum} page={page} setPage={setPage} hasMore={hasMore} setHasMore={setHasMore} />
     </>
   );
 }
