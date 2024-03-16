@@ -2,53 +2,56 @@ import React, { use, useState } from "react";
 import styles from "./CarCard.module.css";
 import { FaLocationPin } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
-import SortMenu from "../SortMenu/SortMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
-export default function CarCard({ carItem, view , carList ,setCarList ,carNumber  }) {
+import { useEffect } from "react";
+import next from "next";
+export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }) {
   const rout=useRouter();
   // function for sperate number 3 , 3
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
-  const [hasMore, setHasMore] = useState(true);
+  let anum=carNumber-10
+  const [hasMore,setHasMore]=useState(true);
   const currentYear = new Date().getFullYear();
-  const bodydata={
-    fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
-      body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
-      engine_cylinders: rout.query.EngineCylinder? rout.query.EngineCylinder :"",
-      year_end: rout.query.Maxyear? Number(rout.query.Maxyear) : currentYear + 1,
-      year_start:rout.query.Minyear? Number(rout.query.Minyear) :1998,
-      price_low:rout.query.MinPrice? Number(rout.query.MinPrice) : null,
-      price_high: rout.query.MaxPrice? Number(rout.query.MaxPrice) : null,
-      odometer_type: 2,
-      make: rout.query.make? rout.query.make :"",
-      model: rout.query.model? rout.query.model :"",
-      transmission: "",
   
-      drive_train: "",
-      doors: "",
-      interior_color: "",
-      Exterior_color: rout.query.Exteriorcolor? rout.query.Exteriorcolor :"",
-      sortKind: {
-        kind: "",
-        type: null,
-        order: 0,
-      },
-      keywords: rout.query.keywords? rout.query.keywords :"",
-      sold: "",
-      is_coming_soon:  "",
-      is_it_special:  null,
-      odometer_low: rout.query.Minodometer? Number(rout.query.Minodometer) : null,
-      odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
-    }
-    let a=0;
+    let a=1;
+    console.log(carNumber)
     const getMorePost = async () => {
     
-    
+      const bodydata={
+        fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
+          body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
+          engine_cylinders: rout.query.EngineCylinder? rout.query.EngineCylinder :"",
+          year_end: rout.query.Maxyear? Number(rout.query.Maxyear) : currentYear + 1,
+          year_start:rout.query.Minyear? Number(rout.query.Minyear) :1998,
+          price_low:rout.query.MinPrice? Number(rout.query.MinPrice) : null,
+          price_high: rout.query.MaxPrice? Number(rout.query.MaxPrice) : null,
+          odometer_type: 2,
+          make: rout.query.make? rout.query.make :"",
+          model: rout.query.model? rout.query.model :"",
+          transmission: "",
+      
+          drive_train: "",
+          doors: "",
+          interior_color: "",
+          Exterior_color: rout.query.Exteriorcolor? rout.query.Exteriorcolor :"",
+          sortKind: {
+            kind: "",
+            type: null,
+            order: 0,
+          },
+          keywords: rout.query.keywords? rout.query.keywords :"",
+          sold: "",
+          is_coming_soon:  "",
+          is_it_special:  null,
+          odometer_low: rout.query.Minodometer? Number(rout.query.Minodometer) : null,
+          odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
+        }
     const res = await fetch(
-      `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${a+1}&limit=10&keywords=${bodydata.keywords}&`
+      `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${a}&limit=10&keywords=${bodydata.keywords}&${sort}=ASC`
     ,{
       method: 'POST',
       headers: {
@@ -57,8 +60,18 @@ export default function CarCard({ carItem, view , carList ,setCarList ,carNumber
       body:JSON.stringify(bodydata),
     });
     const newPosts = await res.json();
+    anum=anum-10;
     setCarList((carList) => [...carList, ...newPosts]);
  };
+ useEffect(()=>{
+  if (anum>1){
+    setHasMore(true)
+  }
+  else{
+    setHasMore(false)
+  }
+ },[carList])
+ 
   return (
     <>
       {/* display in grid */}

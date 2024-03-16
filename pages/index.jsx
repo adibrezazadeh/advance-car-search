@@ -21,9 +21,9 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber}  /> 
-      <SortMenu {...props} view={view} setView={setView} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} view={view} setCarList={setCarList} carList={carList} carNumber={carNumber} />
+       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} sort={sort}  /> 
+      <SortMenu {...props} view={view} setView={setView} setCarList={setCarList} sort={sort} setSort={setSort} carNumber={carNumber} />
+      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} carNumber={carNumber} />
     </>
   );
 }
