@@ -5,13 +5,18 @@ import styles from "@/styles/Home.module.css";
 import SearchBox from '@/Components/SearchBox/SearchBox.jsx'
 import SortMenu from '@/Components//SortMenu/SortMenu.jsx'
 import CarCard from '@/Components//CarCard/CarCard.jsx'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 export default function Home(props) {
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
   const[carList,setCarList]=useState(props.carItem)
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
+  const [anum,setAnum]=useState(0)
+  useEffect(()=>{
+    console.log("car number has upgrated  ==",carNumber)
+    setAnum(carNumber-10)
+  },[carNumber])
   return (
     <>
       <Head>
@@ -23,7 +28,7 @@ export default function Home(props) {
       
        <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} sort={sort}  /> 
       <SortMenu {...props} view={view} setView={setView} setCarList={setCarList} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} carNumber={carNumber} />
+      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} anum={anum} setAnum={setAnum} />
     </>
   );
 }

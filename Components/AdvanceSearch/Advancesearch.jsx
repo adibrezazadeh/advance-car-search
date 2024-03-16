@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
-import React from 'react'
-import CarCard from '../CarCard/CarCard';
+
 
 async function Advancesearch(sort , setCarList,newQueryParams,setCarNumber) {
     const currentYear = new Date().getFullYear();

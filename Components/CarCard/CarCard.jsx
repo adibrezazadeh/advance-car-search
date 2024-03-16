@@ -6,21 +6,18 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import next from "next";
-export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }) {
+export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum  }) {
   const rout=useRouter();
   // function for sperate number 3 , 3
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
-  let anum=carNumber-10
   const [hasMore,setHasMore]=useState(true);
   const currentYear = new Date().getFullYear();
   
-    let a=1;
-    console.log(carNumber)
+    const [page,setPage]=useState(1)
     const getMorePost = async () => {
-    
       const bodydata={
         fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
           body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
@@ -51,7 +48,7 @@ export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }
           odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
         }
     const res = await fetch(
-      `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${a}&limit=10&keywords=${bodydata.keywords}&${sort}=ASC`
+      `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${page}&limit=10&keywords=${bodydata.keywords}&${sort}=ASC`
     ,{
       method: 'POST',
       headers: {
@@ -60,15 +57,18 @@ export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }
       body:JSON.stringify(bodydata),
     });
     const newPosts = await res.json();
-    anum=anum-10;
+    await setAnum(anum-10)
     setCarList((carList) => [...carList, ...newPosts]);
  };
- useEffect(()=>{
-  if (anum>1){
-    setHasMore(true)
+ console.log("anum in car card   ",anum)
+ useEffect( ()=>{
+  if (anum<1){
+    setHasMore(false)
+    
   }
   else{
-    setHasMore(false)
+    setHasMore(true)
+    setPage(page+1);
   }
  },[carList])
  
@@ -77,8 +77,8 @@ export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
        <InfiniteScroll 
-      dataLength={carNumber}
-      next={()=>{a=a+1;getMorePost()}}
+      dataLength={anum}
+      next={async()=>{getMorePost()}}
       hasMore={hasMore}
       loader={<h3>Loading...</h3>}
       endMessage={<h4>Nothing more to show</h4>}
@@ -266,6 +266,13 @@ export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }
       </div>
       {/* display in list */}
       <div className={`container ${view ? "d-none" : " d-lg-block d-none"}`}>
+      <InfiniteScroll 
+      dataLength={anum}
+      next={async()=>{getMorePost()}}
+      hasMore={hasMore}
+      loader={<h3>Loading...</h3>}
+      endMessage={<h4>Nothing more to show</h4>}
+      >
         <div className="">
           {carList.map((item) => (
             <div key={item.id} className="shadow my-2 row ">
@@ -503,6 +510,7 @@ export default function CarCard({ sort, view , carList ,setCarList ,carNumber  }
             </div>
           ))}
         </div>
+        </InfiniteScroll>
       </div>
     </>
   );

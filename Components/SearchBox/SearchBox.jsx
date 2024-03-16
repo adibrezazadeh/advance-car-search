@@ -83,7 +83,6 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
         
        }, undefined, { shallow: true });
       
-    console.log(router)
     Advancesearch(sort , setCarList ,newQueryParams,setCarNumber  );
   }
   return (
