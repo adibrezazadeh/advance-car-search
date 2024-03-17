@@ -10,14 +10,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home(props) {
   const [view,setView]=useState(true)
   const [sort,setSort]=useState("")
-  const[carList,setCarList]=useState(props.carItem)
+  const[carList,setCarList]=useState([])
   const[carNumber,setCarNumber]=useState(props.carNumber.length)
-  const [anum,setAnum]=useState(0)
-  const [page,setPage]=useState(1)
   const [hasMore,setHasMore]=useState(true);
-  useEffect(()=>{
-    setAnum(carNumber)
-  },[carNumber])
+  const [page,setPage]=useState(0)
 
   return (
     <>
@@ -28,9 +24,9 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} sort={sort}  /> 
+       <SearchBox {...props} setCarList={setCarList} setCarNumber={setCarNumber} sort={sort} setPage={setPage}  /> 
       <SortMenu {...props} view={view} setView={setView} setCarList={setCarList} sort={sort} setSort={setSort} carNumber={carNumber} />
-      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} anum={anum} setAnum={setAnum} page={page} setPage={setPage} hasMore={hasMore} setHasMore={setHasMore} />
+      <CarCard {...props} sort={sort} view={view} setCarList={setCarList} carList={carList} carNumber={carNumber} page={page} setPage={setPage} hasMore={hasMore} setHasMore={setHasMore} />
     </>
   );
 }
@@ -74,16 +70,6 @@ export async function getServerSideProps(ctx) {
     odometer_low: ctx.query.Minodometer? Number(ctx.query.Minodometer) : null,
     odometer_high: ctx.query.Maxodometer? Number(ctx.query.Maxodometer) : null,
   }
-  const res2 = await fetch(
-    `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=1&limit=10&keywords=${bodydata.keywords}&`
-  ,{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json', 
-   },
-    body:JSON.stringify(bodydata),
-  });
-  const carItem = await res2.json();
   const res3 = await fetch(
     `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${domain}?page=&limit=&keywords=${bodydata.keywords}`
   ,{
@@ -95,6 +81,6 @@ export async function getServerSideProps(ctx) {
   });
   const carNumber = await res3.json();
   return {
-    props: { searchItem , carItem,carNumber   },
+    props: { searchItem ,carNumber   },
   };
 }

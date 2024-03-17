@@ -1,6 +1,6 @@
 
 
-async function Advancesearch(sort , setCarList,newQueryParams,setCarNumber) {
+async function Advancesearch(sort , setCarList,newQueryParams,setCarNumber,setPage) {
     const currentYear = new Date().getFullYear();
     const bodydata={
         fuel_type: newQueryParams.Fueltype,
@@ -53,6 +53,7 @@ async function Advancesearch(sort , setCarList,newQueryParams,setCarNumber) {
       const carnumber = await res3.json();
       setCarNumber(carnumber.length)
       setCarList(carItem);
+      setPage(0);
 }
 
 export default Advancesearch

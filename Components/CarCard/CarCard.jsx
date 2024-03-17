@@ -6,8 +6,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import next from "next";
-export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum ,page,setPage , hasMore , setHasMore  }) {
+export default function CarCard({ sort, view , carList,page,setPage ,setCarList ,carNumber , hasMore , setHasMore  }) {
   const rout=useRouter();
+  
   // function for sperate number 3 , 3
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -54,30 +55,67 @@ export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum
       body:JSON.stringify(bodydata),
     });
     const newPosts = await res.json();
-    await setAnum(anum-10);
-    setCarList((carList) => [...carList, ...newPosts]);
- };
- useEffect( ()=>{
-     
-  if (anum>1){
-    setHasMore(true);
-    setPage(page+1);
-  }
-  else{
+    setCarList( [...carList, ...newPosts]);
     
-    setHasMore(false)
-  }
- },[anum])
- console.log(anum);
- console.log(page);
+    
+ };
+ useEffect (()=>{setPage(page+1);},[carList])
+ useEffect( ()=>{
+  setPage(0)
+  const bodydata={
+    fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
+      body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
+      engine_cylinders: rout.query.EngineCylinder? rout.query.EngineCylinder :"",
+      year_end: rout.query.Maxyear? Number(rout.query.Maxyear) : currentYear + 1,
+      year_start:rout.query.Minyear? Number(rout.query.Minyear) :1998,
+      price_low:rout.query.MinPrice? Number(rout.query.MinPrice) : null,
+      price_high: rout.query.MaxPrice? Number(rout.query.MaxPrice) : null,
+      odometer_type: 2,
+      make: rout.query.make? rout.query.make :"",
+      model: rout.query.model? rout.query.model :"",
+      transmission: "",
+  
+      drive_train: "",
+      doors: "",
+      interior_color: "",
+      Exterior_color: rout.query.Exteriorcolor? rout.query.Exteriorcolor :"",
+      sortKind: {
+        kind: "",
+        type: null,
+        order: 0,
+      },
+      keywords: rout.query.keywords? rout.query.keywords :"",
+      sold: "",
+      is_coming_soon:  "",
+      is_it_special:  null,
+      odometer_low: rout.query.Minodometer? Number(rout.query.Minodometer) : null,
+      odometer_high: rout.query.Maxodometer? Number(rout.query.Maxodometer) : null,
+    }
+    const fetchdata= async ()=> {
+        const res =await  fetch(
+          `https://api.hillzusers.com/api/dealership/advance/search/vehicles/${window.location.host}?page=${page}&limit=10&keywords=${bodydata.keywords}&${sort}=ASC`
+        ,{
+         method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+          },
+        body:JSON.stringify(bodydata),
+        });
+      const car =await res.json();
+      setCarList(car)
+      };
+    
+    fetchdata();
+    
+ },[])
   return (
     <>
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
        <InfiniteScroll 
-      dataLength={anum}
+      dataLength={carList}
       hasMore={hasMore}
-      next={()=>getMorePost()}
+      next={()=>{getMorePost()}}
       loader={<h3>Loading...</h3>}
       >
         <div className={"row "}>
@@ -264,8 +302,8 @@ export default function CarCard({ sort, view , carList ,setCarList ,anum,setAnum
       {/* display in list */}
       <div className={`container ${view ? "d-none" : " d-lg-block d-none"}`}>
       <InfiniteScroll 
-      dataLength={anum}
-      next={async()=>{getMorePost()}}
+      dataLength={carNumber}
+      next={()=>{getMorePost()}}
       hasMore={hasMore}
       loader={<h3>Loading...</h3>}
       endMessage={<h4>Nothing more to show</h4>}

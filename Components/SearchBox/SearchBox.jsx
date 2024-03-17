@@ -7,7 +7,7 @@ import { redirect } from "next/dist/server/api-utils";
 import Advancesearch from "../AdvanceSearch/Advancesearch";
 import { Formik } from "formik";
 import proShow from '../proShow/proShow'
-function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
+function SearchBox({searchItem , setCarList,setCarNumber,sort,setPage  } ) {
   const router = useRouter();
   const[pro,setPro]=useState("");
   const[itemsPro,setItemsPro]=useState([]);
@@ -87,7 +87,28 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
         
        }, undefined, { shallow: true });
       
-    Advancesearch(sort , setCarList ,newQueryParams,setCarNumber  );
+    Advancesearch(sort , setCarList ,newQueryParams,setCarNumber,setPage  );
+  }
+  const resetbtn=async()=>{
+    document.getElementById("selectBoxMake").value="";
+    document.getElementById("selectBoxModel").value="";
+    document.getElementById("selectBoxMinyear").value="";
+    document.getElementById("selectBoxMaxyear").value="2025";
+    document.getElementById("selectBoxMinprice").value="";
+    document.getElementById("selectBoxMaxprice").value="";
+    document.getElementById("selectBoxMinkm").value="";
+    document.getElementById("selectBoxMaxkm").value="";
+    document.getElementById("selectBoxEngine").value="";
+    document.getElementById("selectBoxBodystyle").value="";
+    document.getElementById("selectBoxFuel").value="";
+    document.getElementById("selectBoxColor").value="";
+    document.getElementById("textsearch").value="";
+    await searchbtn();
+    router.push({
+      pathname: router.pathname,
+       query: "",
+      
+     }, undefined, { shallow: true });
   }
   useEffect(()=>{
     if (pro!=""){
@@ -247,7 +268,7 @@ function SearchBox({searchItem , setCarList,setCarNumber,sort  } ) {
           <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={(e)=>{e.preventDefault() ; searchbtn()} }>Search</button>
           </div>
           <div className="col-lg-3 col-6 px-2 py-1">
-          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={(e)=>{e.preventDefault()}} >Reset</button>
+          <button type="submit" className={`py-1 ${styles.buttonsearch} d-flex w-100 align-items-center justify-content-center`} onClick={(e)=>{e.preventDefault(); resetbtn()}} >Reset</button>
           </div>
         </div>
       </div>
