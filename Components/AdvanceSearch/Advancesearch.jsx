@@ -51,9 +51,10 @@ async function Advancesearch(sort , setCarList,newQueryParams,setCarNumber,setPa
         body:JSON.stringify(bodydata),
       });
       const carnumber = await res3.json();
-      setCarNumber(carnumber.length)
+      setCarList([]);
+      setCarNumber(carnumber.length);
       setCarList(carItem);
-      setPage(0);
+      setPage(1);
 }
 
 export default Advancesearch

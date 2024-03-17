@@ -5,7 +5,6 @@ import { FaPhoneAlt } from "react-icons/fa";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import next from "next";
 export default function CarCard({ sort, view , carList,page,setPage ,setCarList ,carNumber , hasMore , setHasMore  }) {
   const rout=useRouter();
   
@@ -59,9 +58,16 @@ export default function CarCard({ sort, view , carList,page,setPage ,setCarList 
     
     
  };
- useEffect (()=>{setPage(page+1);},[carList])
+ useEffect (()=>{
+  if (carList.length>=10){
+
+    setPage((carList.length/10)+1);
+  }
+if (carList.length>=carNumber){
+  setHasMore(false)
+}},[carList])
  useEffect( ()=>{
-  setPage(0)
+  setPage(2)
   const bodydata={
     fuel_type: rout.query.Fueltype? rout.query.Fueltype :"",
       body_style:  rout.query.Bodystyle? rout.query.Bodystyle :"",
@@ -113,7 +119,7 @@ export default function CarCard({ sort, view , carList,page,setPage ,setCarList 
       {/* display in grid */}
       <div className={`container ${view ? "" : "d-lg-none "}`}>
        <InfiniteScroll 
-      dataLength={carList}
+      dataLength={Number(carList.length)}
       hasMore={hasMore}
       next={()=>{getMorePost()}}
       loader={<h3>Loading...</h3>}
@@ -302,7 +308,7 @@ export default function CarCard({ sort, view , carList,page,setPage ,setCarList 
       {/* display in list */}
       <div className={`container ${view ? "d-none" : " d-lg-block d-none"}`}>
       <InfiniteScroll 
-      dataLength={carNumber}
+      dataLength={Number(carList.length)}
       next={()=>{getMorePost()}}
       hasMore={hasMore}
       loader={<h3>Loading...</h3>}
