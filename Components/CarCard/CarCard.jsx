@@ -5,6 +5,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Link from "next/link";
 export default function CarCard({ sort, view , carList,page,setPage ,setCarList ,carNumber , hasMore , setHasMore  }) {
   const rout=useRouter();
   
@@ -129,6 +130,7 @@ if (carList.length>=carNumber){
             <div key={item.id} className="p-2 col-12 col-md-6 col-xl-4">
               <div className={`  shadow p-0 ${styles.boxcar}`}>
                 <div className="">
+                  <Link href={`/${item.Vehicle.model_year}-${item.Vehicle.make}-${item.Vehicle.model}-${item.id}`}>
                   <div className="">
                     <img 
                       src={
@@ -140,6 +142,7 @@ if (carList.length>=carNumber){
                       alt="car"
                     />
                   </div>
+                  </Link>
                   <div className="m-3 d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
                       <input
