@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper/modules';
+import { Autoplay ,Navigation } from 'swiper/modules';
 import "swiper/css";
 import 'swiper/css/navigation';
 import styles from './SliderSwip.module.css';
@@ -23,7 +23,7 @@ function SliderSwip({data2}) {
         ref={swiperMainRef}
         className='swipermain'
         navigation={true} 
-        modules={[Navigation]}
+        modules={[Autoplay,Navigation]}
         spaceBetween={0}
         slidesPerView={1}
         onSlideChange={() => console.log("slide change")}
@@ -32,6 +32,11 @@ function SliderSwip({data2}) {
           swiperMainRef.current = swiper;
         }}
         initialSlide={activeSlide}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: true, // Stop autoplay after user interaction
+          reverseDirection: false, // Autoplay direction
+        }}
       >
         {data2.map((item, index) => (
           <SwiperSlide key={index}>
