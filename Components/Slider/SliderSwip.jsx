@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay ,Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import "swiper/css";
 import 'swiper/css/navigation';
 import styles from './SliderSwip.module.css';
-import { FaPlay } from "react-icons/fa";
-import { FaPause } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 
 
@@ -16,7 +15,7 @@ function SliderSwip({data2}) {
  const swiperTwoRef = useRef(null);
 
  const toggleAutoplay = () => {
-   if (swiperMainRef.current) {
+    if (swiperMainRef.current) {
      const swiper = swiperMainRef.current;
      if (isAutoplay) {
        swiper.autoplay.stop();
@@ -27,12 +26,22 @@ function SliderSwip({data2}) {
    }
  };
 
- const handleSlideClick = (index) => {
-   setActiveSlide(index);
-   if (swiperMainRef.current) {
-     swiperMainRef.current.slideTo(index);
-   }
+ const handleSlideChange = (swiper) => {
+    setActiveSlide(swiper.activeIndex);
  };
+
+ const handleSlideClick = (index) => {
+    setActiveSlide(index);
+    if (swiperMainRef.current) {
+       swiperMainRef.current.slideTo(index);
+    }
+ };
+
+ useEffect(() => {
+    if (swiperTwoRef.current) {
+      swiperTwoRef.current.slideTo(activeSlide);
+    }
+ }, [activeSlide]);
 
  return (
     <div className={`${styles.sliderbox} mt-5 col-12`}>
@@ -43,7 +52,7 @@ function SliderSwip({data2}) {
         modules={[Autoplay, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
+        onSlideChange={handleSlideChange}
         onSwiper={(swiper) => {
           // Ensure the Swiper instance is correctly set
           swiperMainRef.current = swiper;
@@ -62,7 +71,6 @@ function SliderSwip({data2}) {
               alt={`Slide ${index + 1}`}
               style={{ width: '100%', height: 'auto' }}
             />
-            
           </SwiperSlide>
         ))}
         <p
@@ -103,7 +111,7 @@ function SliderSwip({data2}) {
         ))}
       </Swiper>
     </div>
-  )
+ );
 }
 
 export default SliderSwip;

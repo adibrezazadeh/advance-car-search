@@ -26,8 +26,8 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
   return (
     <div className="container">
       <div className="d-flex justify-content-between mt-3">
-        <button type="button" className="btn btn-primary" onClick={prevcar}>Previous car</button>
-        <button type="button" className="btn btn-primary" onClick={nextcar}>Next car</button>
+        <button type="button" className="btn btn-dark" onClick={prevcar}>Previous car</button>
+        <button type="button" className="btn btn-dark" onClick={nextcar}>Next car</button>
       </div>
       {/* header of page */}
       <div
