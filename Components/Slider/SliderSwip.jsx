@@ -4,11 +4,28 @@ import { Autoplay ,Navigation } from 'swiper/modules';
 import "swiper/css";
 import 'swiper/css/navigation';
 import styles from './SliderSwip.module.css';
+import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa";
+
+
 
 function SliderSwip({data2}) {
+ const [isAutoplay, setIsAutoplay] = useState(true);
  const [activeSlide, setActiveSlide] = useState(0);
  const swiperMainRef = useRef(null);
  const swiperTwoRef = useRef(null);
+
+ const toggleAutoplay = () => {
+   if (swiperMainRef.current) {
+     const swiper = swiperMainRef.current;
+     if (isAutoplay) {
+       swiper.autoplay.stop();
+     } else {
+       swiper.autoplay.start();
+     }
+     setIsAutoplay(!isAutoplay);
+   }
+ };
 
  const handleSlideClick = (index) => {
    setActiveSlide(index);
@@ -23,7 +40,7 @@ function SliderSwip({data2}) {
         ref={swiperMainRef}
         className='swipermain'
         navigation={true} 
-        modules={[Autoplay,Navigation]}
+        modules={[Autoplay, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
         onSlideChange={() => console.log("slide change")}
@@ -45,8 +62,21 @@ function SliderSwip({data2}) {
               alt={`Slide ${index + 1}`}
               style={{ width: '100%', height: 'auto' }}
             />
+            
           </SwiperSlide>
         ))}
+        <p
+              className="play-pause-button text-primary"
+              onClick={toggleAutoplay}
+              style={{
+                position: 'absolute',
+                bottom: '10px',
+                left: '10px',
+                zIndex: 10,
+              }}
+            >
+              {isAutoplay ? <FaPause /> : <FaPlay />}
+            </p>
         </Swiper>
       <Swiper
         ref={swiperTwoRef}
