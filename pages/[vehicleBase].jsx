@@ -6,7 +6,6 @@ import Details from "@/Components/Details/Details";
 import { useRouter } from 'next/router';
 import Detailmini from "@/Components/Detailmini/Detailmini";
 
-
 function vehicleBase({ data, data2, domain: host, specialData }) {
   const router = useRouter();
 
@@ -58,7 +57,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
       {/* discription */}
       <div className="mt-3">
         <div className={`fw-bold ${styles.headertop}`}>Description</div>
-        <div>
+        <div className="text-xs">
           <div dangerouslySetInnerHTML={{ __html: data.comment }} />
         </div>
       </div>
@@ -68,7 +67,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
         <div>
           <div  className={`row col-12`}>
             {data.more_option.map((item, index) => (
-              <p key={index + 1} className={`col-6 col-md-4 ${styles.options}`}>{item}</p>
+              <p key={index + 1} className={`col-6 text-xs col-md-4 ${styles.options}`}>{item}</p>
             ))}
           </div>
         </div>
@@ -96,8 +95,6 @@ export async function getServerSideProps(context) {
     {},
     {}
   );
-  // const res3 = await fetch(`${BASE_URL}/api/soldImages/${host}`);
-  // const sold = await res3.json();
   if (res.status === 200 && res2.status === 200 && specialStatus === 200) {
     const data = await res.json();
     const data2 = await res2.json();
