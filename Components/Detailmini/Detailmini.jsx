@@ -9,7 +9,7 @@ import { PiEngineFill } from "react-icons/pi";
 
 export default function Detailmini({data}) {
     const sperateNum = (num) => {
-        const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const sperateNumber = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return sperateNumber;
       };
     return (
@@ -19,7 +19,7 @@ export default function Detailmini({data}) {
             <FaCar className={Styles.icons} />
         </div>
         <div>
-            <p className='p-0 m-0 fw-bold'>{data.Vehicle.BodyStyle.name}</p>
+            <p className='p-0 m-0 fw-bold'>{data.Vehicle?.BodyStyle.name}</p>
             <p className='p-0 m-0 '>Body Type</p>
         </div>
 
@@ -29,7 +29,7 @@ export default function Detailmini({data}) {
             <IoSpeedometer className={Styles.icons} />
         </div>
         <div>
-            <p className='p-0 m-0 fw-bold'>{sperateNum(data.odometer)} KM</p>
+            <p className='p-0 m-0 fw-bold'>{sperateNum(data?.odometer)} KM</p>
             <p className='p-0 m-0 '>Odometer</p>
         </div>
 
@@ -39,7 +39,7 @@ export default function Detailmini({data}) {
             <BsFillFuelPumpFill className={Styles.icons} />
         </div>
         <div>
-            <p className='p-0 m-0 fw-bold'>{data.Vehicle.fuel_type}</p>
+            <p className='p-0 m-0 fw-bold'>{data.Vehicle?.fuel_type}</p>
             <p className='p-0 m-0 '>Fuel Type</p>
         </div>
 
@@ -49,7 +49,7 @@ export default function Detailmini({data}) {
             <PiEngineFill className={Styles.icons} />
         </div>
         <div>
-            <p className='p-0 m-0 fw-bold'>{data.Vehicle.engine_cylinders}</p>
+            <p className='p-0 m-0 fw-bold'>{data.Vehicle?.engine_cylinders}</p>
             <p className='p-0 m-0 '>Engine</p>
         </div>
       </div>

@@ -19,7 +19,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
     router.push(`/${previousVehicle.model_year}-${previousVehicle.make}-${previousVehicle.model}-${data.previousVehicle.id}`);
   };
   const sperateNum = (num) => {
-    const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const sperateNumber = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
   return (
@@ -38,7 +38,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
           <p className={styles.headertop2}>{data.Vehicle.model}</p>
         </div>
         <div>
-          <p className={styles.headertop3}>${sperateNum(data.sell_price)}</p>
+          <p className={styles.headertop3}>${sperateNum(data?.sell_price)}</p>
         </div>
       </div>
       {/* data of car picture and details */}
@@ -58,7 +58,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
       <div className="mt-3">
         <div className={`fw-bold ${styles.headertop}`}>Description</div>
         <div className="text-xs">
-          <div dangerouslySetInnerHTML={{ __html: data.comment }} />
+          <div dangerouslySetInnerHTML={{ __html: data?.comment }} />
         </div>
       </div>
       {/* Features & Options */}
