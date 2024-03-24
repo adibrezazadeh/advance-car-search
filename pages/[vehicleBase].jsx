@@ -3,19 +3,31 @@ import { httpRequest } from "@/apis/index";
 import SliderSwip from "@/Components/Slider/SliderSwip";
 import styles from "@/Components/Slider/SliderSwip.module.css";
 import Details from "@/Components/Details/Details";
-import { NavItem } from "react-bootstrap";
+import { useRouter } from 'next/router';
+
 
 function vehicleBase({ data, data2, domain: host, specialData }) {
-  console.log("dataaaa====", data);
-  console.log("dataaaa2====", data2);
-  console.log("host====", host);
-  console.log("specialData", specialData);
+  const router = useRouter();
+
+  const nextcar = () => {
+    const nextVehicle = data.nextVehicle.Vehicle;
+    router.push(`/${nextVehicle.model_year}-${nextVehicle.make}-${nextVehicle.model}-${data.nextVehicle.id}`);
+  };
+
+  const prevcar = () => {
+    const previousVehicle = data.previousVehicle.Vehicle;
+    router.push(`/${previousVehicle.model_year}-${previousVehicle.make}-${previousVehicle.model}-${data.previousVehicle.id}`);
+  };
   const sperateNum = (num) => {
     const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
   };
   return (
     <div className="container">
+      <div className="d-flex justify-content-between mt-3">
+        <button type="button" className="btn btn-primary" onClick={prevcar}>Previous car</button>
+        <button type="button" className="btn btn-primary" onClick={nextcar}>Next car</button>
+      </div>
       {/* header of page */}
       <div
         className={`d-flex justify-content-between align-items-center mt-4 ${styles.header}`}
