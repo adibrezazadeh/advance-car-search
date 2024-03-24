@@ -2,6 +2,7 @@ import React from "react";
 import { httpRequest } from "@/apis/index";
 import SliderSwip from "@/Components/Slider/SliderSwip";
 import styles from '@/Components/Slider/SliderSwip.module.css';
+import Details from "@/Components/Details/Details";
 
 function vehicleBase({ data, data2, domain: host, specialData }) {
   console.log("dataaaa====", data);
@@ -26,13 +27,13 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
         </div>
       </div>
       {/* data of car picture and details */}
-      <div className="col-12">
-        <div className="col-12 col-md-6">
+      <div className="d-flex row">
+        <div className="col-12 col-lg-6">
           <SliderSwip data2={data2}/>
 
         </div>
-        <div className="col-12 col-md-6">
-          
+        <div className="col-12 col-lg-6">
+          <Details data={data}/>
         </div>
 
       </div>
