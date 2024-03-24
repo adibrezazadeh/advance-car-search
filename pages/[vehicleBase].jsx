@@ -1,21 +1,38 @@
 import React from "react";
 import { httpRequest } from "@/apis/index";
 import SliderSwip from "@/Components/Slider/SliderSwip";
+import styles from '@/Components/Slider/SliderSwip.module.css';
 
 function vehicleBase({ data, data2, domain: host, specialData }) {
   console.log("dataaaa====", data);
   console.log("dataaaa2====", data2);
   console.log("host====", host);
   console.log("specialData", specialData);
+  const sperateNum = (num) => {
+    const sperateNumber = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return sperateNumber;
+  };
   return (
     <div className="container">
+      {/* header of page */}
+      <div className={`d-flex justify-content-between align-items-center mt-4 ${styles.header}`}>
+        <div className="d-flex gap-1 align-items-center">
+          <p className={styles.headertop}>{data.Vehicle.model_year}</p>
+          <p className={styles.headertop}>{data.Vehicle.make}</p>
+          <p className={styles.headertop2}>{data.Vehicle.model}</p>
+        </div>
+        <div>
+          <p className={styles.headertop3}>${sperateNum(data.sell_price)}</p>
+        </div>
+      </div>
+      {/* data of car picture and details */}
       <div className="col-12">
         <div className="col-12 col-md-6">
           <SliderSwip data2={data2}/>
 
         </div>
         <div className="col-12 col-md-6">
-
+          
         </div>
 
       </div>

@@ -1,3 +1,17 @@
 .activeImage {
     border: 2px solid blue;
    }
+.headertop {
+    color: #000;
+    font-size: 25px;
+}
+.headertop2{
+    font-size: 16px;
+}
+.header{
+    border-bottom: red solid 2px;
+}
+.headertop3{
+    color: #67677a;
+    font-size: 22px;
+}
