@@ -4,6 +4,7 @@ import SliderSwip from "@/Components/Slider/SliderSwip";
 import styles from "@/Components/Slider/SliderSwip.module.css";
 import Details from "@/Components/Details/Details";
 import { useRouter } from 'next/router';
+import Detailmini from "@/Components/Detailmini/Detailmini";
 
 
 function vehicleBase({ data, data2, domain: host, specialData }) {
@@ -47,7 +48,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
         <div className="col-12 col-lg-6">
           <SliderSwip data2={data2} />
           {/* icons behind of picture */}
-          <div></div>
+          <Detailmini data={data}/>
         </div>
         {/* details of car */}
         <div className="col-12 col-lg-6">
