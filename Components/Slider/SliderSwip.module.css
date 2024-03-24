@@ -1,5 +1,5 @@
 .activeImage {
-    border: 2px solid blue;
+    border: 2px solid red;
    }
 .headertop {
     color: #000;
@@ -18,3 +18,9 @@
 .options{
     border-bottom: dashed 2px #f3f3f3;
 }
+.swiper-button-next{ 
+    color: red !important ;
+   }
+.swiper-button-prev {
+    color: red !important ;
+   }

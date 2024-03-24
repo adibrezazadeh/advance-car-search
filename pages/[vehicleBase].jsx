@@ -18,6 +18,9 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
     const previousVehicle = data.previousVehicle.Vehicle;
     router.push(`/${previousVehicle.model_year}-${previousVehicle.make}-${previousVehicle.model}-${data.previousVehicle.id}`);
   };
+  const backtoinventory = () => {
+    router.push(`/`);
+  };
   const sperateNum = (num) => {
     const sperateNumber = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return sperateNumber;
@@ -26,6 +29,7 @@ function vehicleBase({ data, data2, domain: host, specialData }) {
     <div className="container">
       <div className="d-flex justify-content-between mt-3">
         <button type="button" className="btn btn-dark" onClick={prevcar}>Previous car</button>
+        <button type="button" className="btn btn-danger" onClick={backtoinventory}>Back to Inventory</button>
         <button type="button" className="btn btn-dark" onClick={nextcar}>Next car</button>
       </div>
       {/* header of page */}

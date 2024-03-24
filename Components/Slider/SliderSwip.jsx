@@ -74,7 +74,7 @@ function SliderSwip({data2}) {
           </SwiperSlide>
         ))}
         <p
-              className="play-pause-button text-primary"
+              className="play-pause-button text-danger"
               onClick={toggleAutoplay}
               style={{
                 position: 'absolute',
@@ -88,7 +88,7 @@ function SliderSwip({data2}) {
         </Swiper>
       <Swiper
         ref={swiperTwoRef}
-        className='mt-3 swipertwo'
+        className='mt-3 swipertwo text-danger'
         navigation={true} 
         modules={[Navigation]}
         spaceBetween={25}
